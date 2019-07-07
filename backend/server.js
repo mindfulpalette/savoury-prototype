@@ -1,8 +1,12 @@
 // Module imports
 const express = require('express');
+const conncectDB = require('./config/db.js');
 
 // This initialized the express server
 const app = express();
+
+// Connects to the database
+conncectDB();
 
 // Creates a variable called "PORT" and binds it to either 
 // the production environment or local
