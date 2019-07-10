@@ -11,6 +11,10 @@ const reservationRoutes = require('./routes/api/reservation.js');
 // This initializes the express server
 const app = express();
 
+// Middleware Initialization
+    // handles request body parsing
+    app.use(express.json({ extended: false }));
+
 // Connects to the database
 conncectDB();
 
