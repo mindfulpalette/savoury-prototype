@@ -13,7 +13,8 @@ const connectDB = async () => {
         await mongoose.connect(DB, {
             // current URL parser is depreciated, must pass in object to use
             // new parser.
-            useNewUrlParser: true
+            useNewUrlParser: true,
+            useCreateIndex: true
         });
         console.log('Successful MongoDB connection')
     } catch (error) {
