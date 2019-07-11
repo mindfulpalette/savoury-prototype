@@ -79,6 +79,7 @@ router.post('/register', [
                 }
             }
 
+            //Once a payload is created the token is signed, with the payload, the secret, and a callback
             jwt.sign(
                 payload, 
                 config.get('jwtSecret'), 
