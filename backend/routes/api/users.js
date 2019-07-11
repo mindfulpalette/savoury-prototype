@@ -2,10 +2,14 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const { check, validationResult } = require('express-validator');
 
 // Import User model
 const User = require('../../models/User.js');
+
+
 // - POST api/v1/users
 // - Registers a new users
 // - Public
@@ -68,14 +72,30 @@ router.post('/register', [
 
             await user.save();
 
-        } catch (error) {
-            res.send(500).json({
-                message: "Server Error"
-            });
-        }
+            //Create a payload to send with the token. Usually this is the users information or ID
+            const payload = {
+                user: {
+                    id: user.id
+                }
+            }
 
-        res.send('registered')
+            jwt.sign(
+                payload, 
+                config.get('jwtSecret'), 
+                { expiresIn: 360000 },
+                (error, token) => {
+                    if(error) throw error;
+                    res.json({ token });
+                });
+
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).send('Server error')
+        }
 });
 
 
 module.exports = router;
+
+
+

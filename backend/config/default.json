@@ -1,3 +1,4 @@
 {
-    "mongoDbURI": "mongodb+srv://adamwjo:adamwjo@savouryv1-esmpe.mongodb.net/test?retryWrites=true&w=majority"
+    "mongoDbURI": "mongodb+srv://adamwjo:adamwjo@savouryv1-esmpe.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "bedstuy"
 }
