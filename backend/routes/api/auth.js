@@ -59,8 +59,8 @@ router.post('/', [
             return res.status(400).json({ errors: [{ msg: 'Invalid email or password'}] });
         }
 
+        //now the input password is compared to the password that is stored
         const isMatch = await bcrypt.compare(password, user.password);
-
         if (!isMatch) {
             return res.status(400).json({ errors: [{ msg: 'Invalid email or password'}]})
         }

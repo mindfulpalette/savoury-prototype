@@ -20,7 +20,7 @@ module.exports = function(req, res, next) {
         //If a token is present it is then verified with the "secret"
         const decodedToken = jwt.verify(token, config.get('jwtSecret'));
 
-        //The request user value is then set to the User value present in the token
+        //The request user value is then set to the User value present in the token to the next piece of middleware.
         req.user = decodedToken.user;
 
         //This tells the function to move on
