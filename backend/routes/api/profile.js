@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/tokenAuth.js');
+const { check, validationResult } = require('express-validator');
 
 // Model Imports
 const User = require('../../models/User.js');
@@ -30,5 +31,20 @@ router.get('/me', auth,
         }
     
 });
+
+
+
+
+
+
+// POST api/v1/profile
+// Creates OR Updates a profile
+// Private access
+router.post('/', auth, 
+    async (req, res) => {
+        res.send('Create new profile route');
+});
+
+
 
 module.exports = router;
