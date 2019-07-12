@@ -9,7 +9,26 @@ const ProfileSchema = new mongoose.Schema({
         //This is a refrence to user which is associated to the profile
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
-    }
+    },
+    menus: [
+        {
+          title: {
+            type: String,
+            required: true
+          },
+          cuisine_style: {
+            type: String,
+            required: true
+          },
+          base_price: {
+            type: Number
+          },
+          description: {
+            type: String
+          }
+        }
+      ],
+
 
 });
 
