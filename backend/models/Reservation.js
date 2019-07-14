@@ -4,7 +4,7 @@ const timestamp = require('mongoose-timestamp');
 
 
 //This defines the schema for the Profile model
-const ReviewSchema = new mongoose.Schema({
+const ReservationSchema = new mongoose.Schema({
     
 });
 
@@ -14,4 +14,4 @@ ReviewSchema.plugin(timestamp);
 // User is equal to the return value of the model method
 // The model method takes in two arguments:
     //the name of the model, and the schema
-module.exports = Review = mongoose.model('review', ReviewSchema);
+module.exports = Reservation = mongoose.model('reservation', ReservationSchema);

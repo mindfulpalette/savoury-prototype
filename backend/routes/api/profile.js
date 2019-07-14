@@ -72,11 +72,12 @@ router.post('/', [auth, [
         try {
 
             //Now we look for the profile associated with the user, and see if it exists already in the database.
-           let profile = await Profile.findOne({ user: req.user.id }); 
+           let profile = await Profile.findOne({ user: req.user.id });
+            
 
            //If a profile for that user already exits, it is updated instead.
            if(profile) {
-               profile = await Profile.findByIdAndUpdate(
+               profile = await Profile.findOneAndUpdate(
                    { user: req.user.id },
                    { $set: profileFields },
                    { new: true }
@@ -92,7 +93,7 @@ router.post('/', [auth, [
            res.json(profile)
 
         } catch (error) {
-            console.errror(error.message);
+            console.error(error.message);
             res.status(500).send('Server Error')
         }
 });

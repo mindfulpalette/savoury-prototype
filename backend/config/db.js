@@ -14,7 +14,8 @@ const connectDB = async () => {
             // current URL parser is depreciated, must pass in object to use
             // new parser.
             useNewUrlParser: true,
-            useCreateIndex: true
+            useCreateIndex: true,
+            useFindAndModify: false
         });
         console.log('Successful MongoDB connection')
     } catch (error) {
