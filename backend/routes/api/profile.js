@@ -105,6 +105,28 @@ router.post('/', [auth, [
 
 /// GET api/profile/user/:user_id
 // Obtains the profile based on the User id associated with it
+// Public Access
+router.get('/user/:user_id', async (req, res) => {
+    try {
+
+        // Uses mongoose to populate data from the users collection, and returns it in the resonponse via JSON
+        // In this case the user's id is obtained from the params
+        const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['first_name', 'last_name']);
+        
+        // Checks to see if the profile exists already
+        if (!profile) return res.status(400).json({ msg: 'Could not find what you are looking for' }); 
+        
+        // If Profile is found succesfuly it is return in JSON
+        res.json(profile);
+
+    } catch (error) {
+        console.error(error.message);
+        if (error.kind == 'ObjectId') {
+            return res.status(400).json({ msg: 'Could not find what you are looking for' });
+        }
+        res.status(500).send('Server Error')
+    }
+})
 
 
 
@@ -120,7 +142,6 @@ router.get('/', async (req, res) => {
         res.json(allProfiles);
 
     } catch (error) {
-        console.error(error.message);
         res.status(500).send('Server Error')
     }
 })
