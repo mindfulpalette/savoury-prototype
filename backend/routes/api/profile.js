@@ -14,7 +14,7 @@ const Profile = require('../../models/Profile.js');
 
 
 // GET api/v1/profile/me
-// Gets the profile associated with the user
+// Gets the profile associated with the "logged-in" user
 // Private access
 router.get('/me', auth, 
     
@@ -22,7 +22,7 @@ router.get('/me', auth,
         try {
             
             //Find the profile associated with the user by using the token. And populate the query with User info as well.
-            const profile = await Profile.findOne({ user: req.user.id }).populate('user', ['first_name', 'last_name', 'email', 'location']);
+            const profile = await Profile.findOne({ user: req.user.id }).populate('user', ['first_name', 'last_name', 'email']);
 
             if (!profile) {
                 return res.status(400).json({msg: 'Profile cannot be found'})
@@ -67,7 +67,8 @@ router.post('/', [auth, [
         const profileFields = {};
         profileFields.user = req.user.id;
         if(location) profileFields.location = location;
-        if(bio) profileFields.bio = bio
+        if(bio) profileFields.bio = bio;
+        if(menu) profileFields.menu = menu;
 
         try {
 
@@ -97,6 +98,32 @@ router.post('/', [auth, [
             res.status(500).send('Server Error')
         }
 });
+
+
+
+
+
+/// GET api/profile/user/:user_id
+// Obtains the profile based on the User id associated with it
+
+
+
+
+
+// GET api/profile
+// Obtains all profiles
+// Public access
+router.get('/', async (req, res) => {
+    try {
+        // Uses mongoose to populate data from the users collection, and returns it in the resonponse via JSON
+        const allProfiles = await Profile.find().populate('user', ['first_name', 'last_name']);
+        res.json(allProfiles);
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error')
+    }
+})
 
 
 
