@@ -10,15 +10,20 @@ const ProfileSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    menus: [
+    location: {
+        type: String,
+        required: true
+    },
+    bio: {
+        type: String
+    },
+    menu: [
         {
           title: {
-            type: String,
-            required: true
+            type: String
           },
           cuisine_style: {
-            type: String,
-            required: true
+            type: String
           },
           base_price: {
             type: Number

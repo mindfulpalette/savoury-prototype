@@ -8,6 +8,11 @@ const { check, validationResult } = require('express-validator');
 const User = require('../../models/User.js');
 const Profile = require('../../models/Profile.js');
 
+
+
+
+
+
 // GET api/v1/profile/me
 // Gets the profile associated with the user
 // Private access
@@ -29,7 +34,6 @@ router.get('/me', auth,
             console.error(error.message);
             res.status(500).send('Server Error');
         }
-    
 });
 
 
@@ -40,9 +44,57 @@ router.get('/me', auth,
 // POST api/v1/profile
 // Creates OR Updates a profile
 // Private access
-router.post('/', auth, 
+router.post('/', [auth, [
+
+    //Middleware that checks for required fields
+    check('location', 'Must submit a location')
+        .not()
+        .isEmpty()
+]], 
+
     async (req, res) => {
-        res.send('Create new profile route');
+
+        //If errors are present in the request, an error response is thrown
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(400).json({ errors: errors.array() })
+        }
+
+        //If no errors are present, the desired information is destructured from the request body.
+        const { location, bio, menu } = req.body
+
+        //Now we build and package the profile data to send as a response.
+        const profileFields = {};
+        profileFields.user = req.user.id;
+        if(location) profileFields.location = location;
+        if(bio) profileFields.bio = bio
+
+        try {
+
+            //Now we look for the profile associated with the user, and see if it exists already in the database.
+           let profile = await Profile.findOne({ user: req.user.id }); 
+
+           //If a profile for that user already exits, it is updated instead.
+           if(profile) {
+               profile = await Profile.findByIdAndUpdate(
+                   { user: req.user.id },
+                   { $set: profileFields },
+                   { new: true }
+               );
+
+               return res.json(profile);
+           }
+
+           //If no profile exits, one is created
+           profile = new Profile(profileFields);
+
+           await profile.save();
+           res.json(profile)
+
+        } catch (error) {
+            console.errror(error.message);
+            res.status(500).send('Server Error')
+        }
 });
 
 

@@ -57,7 +57,6 @@ router.post('/register', [
             user = new User({
                 first_name,
                 last_name,
-                location,
                 email,
                 password
             });
