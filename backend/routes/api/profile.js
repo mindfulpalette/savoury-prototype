@@ -142,9 +142,32 @@ router.get('/', async (req, res) => {
         res.json(allProfiles);
 
     } catch (error) {
-        res.status(500).send('Server Error')
+        res.status(500).send('Server Error');
     }
-})
+});
+
+
+
+
+
+
+
+// DELETE api/profile
+// Deletes profile/user and all associated data.
+// Private access
+router.delete('/', auth,  async (req, res) => {
+    try {
+        // Remove profile
+        await Profile.findOneAndRemove({ user: req.user.id });
+        // Remove user
+        await User.findOneAndRemove({ _id: req.user.id });
+    
+        res.json({ msg: 'User deleted' });
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+      }
+});
 
 
 
