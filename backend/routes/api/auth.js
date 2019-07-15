@@ -12,6 +12,8 @@ const { check, validationResult } = require('express-validator');
 const User = require('../../models/User.js');
 
 
+
+
 // -  GET api/auth
 // - Tests route
 // - Public Access
@@ -28,6 +30,10 @@ router.get('/', auth, async (req, res) => {
         res.status(500).send("server error")
     }
 });
+
+
+
+
 
 
 // -  POST api/auth
