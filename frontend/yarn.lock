@@ -9424,9 +9424,9 @@ supports-color@^6.1.0:
     has-flag "^3.0.0"
 
 svg-parser@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/svg-parser/-/svg-parser-2.0.0.tgz#8252dc3252b0fcf127df22ea5d9cf3dae532ddfb"
-  integrity sha512-0vSo6x2Sm8c5CIkif/xGWpeDjzTzaR4F0QPjWOnK9zgiFZXYoK1Qvii+Sr464H1/RgKdI3usDH8EgTUBhAlKLw==
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/svg-parser/-/svg-parser-2.0.1.tgz#2379e84748b31fad7bf80913e173492f3bcc9f20"
+  integrity sha512-8eUnCsU2sc2hyfvjK++zi5u24a2UQIB2DK9GY/cprGlaDr7SIhm9F0m9CkGYOnOgrK3iTUSnJ7M1DTLqqZt96g==
 
 svgo@^1.0.0:
   version "1.1.1"
