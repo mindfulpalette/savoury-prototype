@@ -1,9 +1,15 @@
 import React, { Fragment } from 'react';
 import './App.css';
+import './bootstrap.min.css';
+
+//Components
+import Landing from './components/landing';
+import Navbar from './components/navbar.js';
 
 const App = () => 
     <Fragment>
-      <h1>App</h1>
+      <Navbar/>
+      <Landing/>
     </Fragment>
 
 export default App;
