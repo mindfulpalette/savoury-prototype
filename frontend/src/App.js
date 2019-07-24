@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 //Redux
 import { Provider } from 'react-redux';
-import store from './store';
+import store from './redux/store';
 
 //Styles
-import './App.css';
-import './bootstrap.min.css';
+import './style/App.css';
+import './style/bootstrap.min.css';
 
 //Components
 import Landing from './components/landing';
