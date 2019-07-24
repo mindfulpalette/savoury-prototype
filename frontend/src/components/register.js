@@ -51,7 +51,7 @@ const Register = () => {
     //COMPONENT HTML///////////////////////////////////////////////
     return (
         <div>
-            <div className="container">
+            <div className="container m-2 p-2">
                 <h1>
                     Create an Account
                 </h1>
@@ -213,7 +213,7 @@ const Register = () => {
                     </label>
                 </div>
             </fieldset>
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary m-4">Submit</button>
                 </form>
             </div>
         </div>
