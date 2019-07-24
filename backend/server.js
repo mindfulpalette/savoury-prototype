@@ -1,7 +1,7 @@
 // Module imports
 const express = require('express');
 const conncectDB = require('./config/db.js');
-
+const cors = require('cors');
 // Route Imports
 const userRoutes = require('./routes/api/users.js');
 const authRoutes = require('./routes/api/auth.js');
@@ -14,6 +14,7 @@ const app = express();
 // Middleware Initialization
     // handles request body parsing
     app.use(express.json({ extended: false }));
+    app.use(cors());
 
 // Connects to the database
 conncectDB();

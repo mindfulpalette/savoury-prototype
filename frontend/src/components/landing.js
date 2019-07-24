@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Landing() {
     return (
-        <div className="container">
+        <div className="container p-5">
             <div className="d-flex justify-content-center h-100">
                 <div className="jumbotron">
                     <h1 className="display-3">Hello! Welcome to Savoury</h1>

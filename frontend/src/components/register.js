@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-
+import axios from 'axios';
 const Register = () => {
 
     const [formData, setFormData] = useState({
-        name: '',
+        first_name: '',
+        last_name: '',
         email: '',
         password: '',
         password2: ''
@@ -11,18 +12,43 @@ const Register = () => {
 
     const { first_name, last_name, email, password, password2 } = formData;
 
+    //EVENT HANDLERS///////////////////////////////////////////////////////////////////
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const onSubmit = e => {
+    const onSubmit = async e => {
         e.preventDefault();
         if(password !== password2) {
             console.log('Passwords do not match')
         } else {
-            console.log(formData)
+            
+            const newUser = {
+                first_name,
+                last_name,
+                email,
+                password
+            }
+
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    baseURL: 'http://localhost:5000'
+                }
+
+                const body = JSON.stringify(newUser);
+
+                const res = await axios.post('/api/v1/users/register', body, config)
+
+                console.log(res.data)
+
+            } catch (error) {
+                console.error(error.response.data)
+            }
         }
     }
 
-
+    //COMPONENT HTML///////////////////////////////////////////////
     return (
         <div>
             <div className="container">
@@ -83,8 +109,10 @@ const Register = () => {
                             <input 
                                 onChange={e => onChange(e)} 
                                 className="form-control" 
-                                id="first-name" value={ first_name } 
-                                name="first-name" type="text" 
+                                id="first-name" 
+                                value={ first_name } 
+                                name="first_name" 
+                                type="text" 
                                 placeholder="First name">
                             </input>
                             <p className="help-block"></p>
@@ -95,8 +123,10 @@ const Register = () => {
                             <input 
                                 onChange={e => onChange(e)} 
                                 className="form-control" 
-                                id="last-name" value={ last_name } 
-                                name="last-name" type="text" 
+                                id="last-name" 
+                                value={ last_name } 
+                                name="last_name" 
+                                type="text" 
                                 placeholder="Last name">
                             </input>
                             <p className="help-block"></p>
@@ -124,8 +154,13 @@ const Register = () => {
 
                         <label>Address Line 2</label>
                         <div className="controls">
-                            <input onChange={e => onChange(e)} id="address-line2" name="address-line2" type="text" placeholder="address line 2"
-                            className="form-control"></input>
+                            <input 
+                                onChange={e => onChange(e)} 
+                                id="address-line2" 
+                                name="address-line2" type="text" 
+                                placeholder="address line 2"
+                                className="form-control">
+                            </input>
                             
                         </div>
                     </div>
