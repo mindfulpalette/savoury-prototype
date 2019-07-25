@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-const Register = () => {
+import { connect } from 'react-redux';
+import { Redirect }  from 'react-router-dom';
+import { setAlert } from '../redux/actions/alert';
+import { register } from '../redux/actions/auth';
+import PropTypes from 'prop-types'
+
+//Components
+
+
+
+const Register = ({ setAlert, register, isAuthenticated }) => {
 
     const [formData, setFormData] = useState({
         first_name: '',
@@ -18,34 +27,14 @@ const Register = () => {
     const onSubmit = async e => {
         e.preventDefault();
         if(password !== password2) {
-            console.log('Passwords do not match')
+            setAlert('Passwords do not match', 'danger')
         } else {
-            
-            const newUser = {
-                first_name,
-                last_name,
-                email,
-                password
-            }
-
-            try {
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    baseURL: 'http://localhost:5000'
-                }
-
-                const body = JSON.stringify(newUser);
-
-                const res = await axios.post('/api/v1/users/register', body, config)
-
-                console.log(res.data)
-
-            } catch (error) {
-                console.error(error.response.data)
-            }
+            register({ first_name, last_name, email, password});
         }
+    }
+
+    if(isAuthenticated) {
+        return <Redirect to="/dashbord"/>
     }
 
     //COMPONENT HTML///////////////////////////////////////////////
@@ -62,8 +51,7 @@ const Register = () => {
                         <input 
                             onChange={e => onChange(e)} 
                             name="email" 
-                            value={ email } 
-                            type="email" 
+                            value={ email }  
                             className="form-control" 
                             placeholder="Enter email">
                         </input>
@@ -220,4 +208,14 @@ const Register = () => {
     )
 }
 
-export default Register
+Register.propTypes = {
+    setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool
+}
+
+const mapStateToProps = state => ({
+    auth: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);

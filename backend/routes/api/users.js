@@ -13,7 +13,7 @@ const User = require('../../models/User.js');
 // - POST api/v1/users
 // - Registers a new users
 // - Public
-router.post('/register', [
+router.post('/', [
 
     //Validations for register input fields
     check('first_name', "Please provide a first name.")
