@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Redirect }  from 'react-router-dom';
+import { Redirect, Link }  from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login } from '../redux/actions/auth';
+import { login } from '../../redux/actions/auth';
 import PropTypes from 'prop-types';
 
 const Login = ({ login, isAuthenticated }) => {
@@ -17,14 +17,13 @@ const Login = ({ login, isAuthenticated }) => {
 
     const onSubmit = async e => {
         e.preventDefault();
-       console.log('success')
        login(email, password)
     }
 
     // Redirect for Login
 
     if(isAuthenticated) {
-        return <Redirect to="/dashbord"/>
+        return <Redirect to="/dashboard"/>
     }
 
     return (
@@ -69,7 +68,7 @@ Login.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, { login })(Login);

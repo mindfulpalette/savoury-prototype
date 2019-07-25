@@ -12,11 +12,13 @@ import './style/App.css';
 import './style/bootstrap.min.css';
 
 //Components
-import Landing from './components/landing';
-import Navbar from './components/navbar.js';
-import Login from './components/login.js';
-import Register from './components/register.js';
-import Alert from './components/alert';
+import Landing from './components/layout/landing';
+import Navbar from './components/layout/navbar.js';
+import Login from './components/auth/login.js';
+import Register from './components/auth/register.js';
+import Alert from './components/layout/alert';
+import Dashboard from './components/dashboard/Dashboard';
+import PrivateRoute from './components/routes/PrivateRouting';
 
 if(localStorage.token){
   setAuthToken(localStorage.token)
@@ -43,6 +45,7 @@ const App = () => {
                       <Switch>
                         <Route exact path="/register" component={ Register }/>
                         <Route exact path="/login" component={ Login }/>
+                        <PrivateRoute exact path="/dashboard" component={ Dashboard }/>
                       </Switch>
                     </section> 
                     
