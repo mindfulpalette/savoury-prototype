@@ -7,16 +7,25 @@ import { logout } from '../../redux/actions/auth';
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 
     const authLinks = (
+        <Fragment>
+            
+                <ul className="navbar-nav mr-auto">
+                    <li>
+                        <Link to="/dashboard">
+                            <a href="!#" className="nav-link">Chef Dashboard</a>
+                        </Link>
+                    </li>
+                </ul>
+                <div className="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+                            <ul className="navbar-nav">
 
-        <div className="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-                    <ul className="navbar-nav">
+                                <li className="nav-item">
+                                    <button onClick={logout} className="btn btn-success my-2 my-sm-0" type="submit">Log Out</button> 
+                                </li>
 
-                        <li className="nav-item">
-                            <button onClick={logout} className="btn btn-success my-2 my-sm-0" type="submit">Log Out</button> 
-                        </li>
-
-                    </ul>
+                            </ul>
                 </div>
+        </Fragment>
 
     );
 

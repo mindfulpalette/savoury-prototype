@@ -34,7 +34,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     }
 
     if(isAuthenticated) {
-        return <Redirect to="/dashbord"/>
+        return <Redirect to="/dashboard"/>
     }
 
     //COMPONENT HTML///////////////////////////////////////////////

@@ -1,6 +1,14 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import { Redirect, Link }  from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function Landing() {
+const  Landing = ({ isAuthenticated }) => {
+
+    if(isAuthenticated) {
+        return <Redirect to="/dashboard" />
+    }
+
     return (
         <div className="container p-5">
             <div className="d-flex justify-content-center h-100">
@@ -16,4 +24,14 @@ export default function Landing() {
             </div>
         </div>
     )
+};
+
+Landing.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired
 }
+
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(Landing);
